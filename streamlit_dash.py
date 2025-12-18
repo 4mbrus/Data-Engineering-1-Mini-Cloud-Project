@@ -22,7 +22,7 @@ def load_and_process_data(topics_file, economy_file):
     """Loads all data at once to ensure consistency."""
     data = {}
     
-    # --- A. Load Topic Data (The new JSON) ---
+    # --- A. Load Topic Data ---
     try:
         df_topics = pd.read_csv(topics_file)
         
@@ -44,7 +44,7 @@ def load_and_process_data(topics_file, economy_file):
         data['topics_df'] = pd.DataFrame()
         data['available_months'] = []
 
-    # --- B. Load Economy Data (The previous JSON) ---
+    # --- B. Load Economy Data  ---
     try:
         df_eco = pd.read_csv(economy_file)
         df_eco['date_obj'] = pd.to_datetime(df_eco['month_year'])
@@ -98,9 +98,9 @@ def get_topics_for_month(df, month_str, source):
             val = 0
             
         topic_name = col.replace('topic_', '').replace('_sum', '').capitalize()
-        clean_data.append({"Topic": topic_name, "Count": int(val)})
+        clean_data.append({"Topic": topic_name, "Percentage": int(val)})
         
-    return pd.DataFrame(clean_data).sort_values("Count", ascending=False)
+    return pd.DataFrame(clean_data).sort_values("Percentage", ascending=False)
 
 # -----------------------------------------------------------------------------
 # 3. Chart Helper (UPDATED: White Text Inside Horizontal Bars)
@@ -110,12 +110,12 @@ def make_topic_chart(df, color_hex):
         return alt.Chart(pd.DataFrame({'A':[]})).mark_text().encode(text=alt.value("No data"))
 
     base = alt.Chart(df).encode(
-        x=alt.X('Count', axis=None), 
+        x=alt.X('Percentage', axis=None), 
         y=alt.Y('Topic', sort=None, axis=alt.Axis(title=None, labelFontSize=12)), 
     )
     
     # Bars
-    bars = base.mark_bar(color=color_hex, cornerRadiusEnd=4).encode(tooltip=['Topic', 'Count'])
+    bars = base.mark_bar(color=color_hex, cornerRadiusEnd=4).encode(tooltip=['Topic', 'Percentage'])
     
     # Text (Inside the bar, aligned right, white)
     text = base.mark_text(
@@ -123,7 +123,7 @@ def make_topic_chart(df, color_hex):
         baseline='middle', 
         dx=-5,              # Move text 5px LEFT (inside)
         color='white'       # White text
-    ).encode(text='Count')
+    ).encode(text='Percentage')
     
     return (bars + text).configure_view(strokeWidth=0).properties(height=300)
 
@@ -179,7 +179,7 @@ col1, col2 = st.columns(2, gap="large")
 # --- LEFT COLUMN: CNN ---
 with col1:
     st.markdown('<img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/CNN.svg" height="100">', unsafe_allow_html=True)
-    st.subheader(f"Topic Focus ({current_month_str})")
+    st.subheader(f"Topic Focus (% of artcles - {current_month_str})")
     
     # Get Data for this specific month
     cnn_topics = get_topics_for_month(data_store['topics_df'], current_month_str, "CNN")
@@ -188,7 +188,7 @@ with col1:
 # --- RIGHT COLUMN: FOX NEWS ---
 with col2:
     st.markdown('<img src="https://upload.wikimedia.org/wikipedia/commons/6/67/Fox_News_Channel_logo.svg" height="100">', unsafe_allow_html=True)
-    st.subheader(f"Topic Focus ({current_month_str})")
+    st.subheader(f"Topic Focus (% of artcles - {current_month_str})")
     
     # Get Data for this specific month
     fox_topics = get_topics_for_month(data_store['topics_df'], current_month_str, "FOX")
@@ -198,7 +198,7 @@ with col2:
 # 6. Bottom Section: Economy Sentiment (Rolling 12 Months)
 # -----------------------------------------------------------------------------
 st.markdown("---")
-st.header("📉 Negative Economic Sentiment (Rolling 12 Months)")
+st.header("📉 Percentage of Articles With Economic Sentiment (Rolling 12 Months)")
 
 with st.container():
     economy_df = data_store['economy_df']
