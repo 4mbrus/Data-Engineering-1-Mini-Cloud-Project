@@ -132,9 +132,8 @@ def make_topic_chart(df, color_hex):
 # -----------------------------------------------------------------------------
 
 # --- Files (Ensure these match your filenames on EC2) ---
-TOPICS_FILE = "monthly_topics.json"      # The new file
-ECONOMY_FILE = "monthly_sentiments.json" # The old file
-LAST_UPDATE = os.path.getmtime("monthly_topics.json")
+TOPICS_FILE = "https://raw.githubusercontent.com/4mbrus/Data-Engineering-1-Mini-Cloud-Project/refs/heads/main/summary_tables/monthly_topics_summary.json"  
+ECONOMY_FILE = "https://raw.githubusercontent.com/4mbrus/Data-Engineering-1-Mini-Cloud-Project/refs/heads/main/summary_tables/monthly_sentiment_summary.json"
 
 # Load Data
 data_store = load_and_process_data(TOPICS_FILE, ECONOMY_FILE)
@@ -163,7 +162,6 @@ else:
 # 5. Layout
 # -----------------------------------------------------------------------------
 st.title("📰 Media Monitor: Economy")
-st.header(f"Last Data Update: {datetime.datetime.fromtimestamp(LAST_UPDATE).strftime('%Y-%m-%d')}")
 
 # --- Month Selector (Top of page) ---
 col_nav1, col_nav2, col_nav3 = st.columns([1, 6, 1])
