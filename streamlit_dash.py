@@ -24,7 +24,7 @@ def load_and_process_data(topics_file, economy_file):
     
     # --- A. Load Topic Data (The new JSON) ---
     try:
-        df_topics = pd.read_json(topics_file)
+        df_topics = pd.read_csv(topics_file)
         
         # Clean and Organize
         df_topics['date_obj'] = pd.to_datetime(df_topics['month_year'])
@@ -46,7 +46,7 @@ def load_and_process_data(topics_file, economy_file):
 
     # --- B. Load Economy Data (The previous JSON) ---
     try:
-        df_eco = pd.read_json(economy_file)
+        df_eco = pd.read_csv(economy_file)
         df_eco['date_obj'] = pd.to_datetime(df_eco['month_year'])
         
         # Sort descending for the rolling chart (Newest first)
@@ -132,8 +132,8 @@ def make_topic_chart(df, color_hex):
 # -----------------------------------------------------------------------------
 
 # --- Files (Ensure these match your filenames on EC2) ---
-TOPICS_FILE = "https://raw.githubusercontent.com/4mbrus/Data-Engineering-1-Mini-Cloud-Project/refs/heads/main/summary_tables/monthly_topics_summary.json"  
-ECONOMY_FILE = "https://raw.githubusercontent.com/4mbrus/Data-Engineering-1-Mini-Cloud-Project/refs/heads/main/summary_tables/monthly_sentiment_summary.json"
+TOPICS_FILE = "https://business-news-sentiments.s3.eu-west-1.amazonaws.com/news_sentiments_monthly/topic_breakdown/monthly_topic_breakdown.csv"  
+ECONOMY_FILE = "https://business-news-sentiments.s3.eu-west-1.amazonaws.com/news_sentiments_monthly/sentiment/monthly_combined_sentiments.csv"
 
 # Load Data
 data_store = load_and_process_data(TOPICS_FILE, ECONOMY_FILE)
