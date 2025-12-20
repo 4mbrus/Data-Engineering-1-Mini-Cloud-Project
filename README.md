@@ -20,11 +20,11 @@ Key details:
     • `types=article` - excluding video, galleries 
 
 Using 52 keywords, up to 100 article links and headlines per keyword were scraped. Since CNN’s search engine relies on JavaScript, the scraping was performed using the Selenium package.
-![](C:/Users/Enkhsaikhan/Data-engineering-scrap/figs_report/pic1.png)
-![](C:/Users/Enkhsaikhan/Data-engineering-scrap/figs_report/pic2.png)
+![](figs_report/pic1.png)
+![](figs_report/pic2.png)
 
 After collecting the news links, the full articles were scraped using BeautifulSoup.
-![](C:/Users/Enkhsaikhan/Data-engineering-scrap/figs_report/pic3.png)
+![](figs_report/pic3.png)
 
 #### 2. Fox News
 The same method is applied to 
