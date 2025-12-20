@@ -132,14 +132,9 @@ def make_topic_chart(df, color_hex):
 # -----------------------------------------------------------------------------
 
 # --- Files (Ensure these match your filenames on EC2) ---
-<<<<<<< HEAD:sql/streamlit_dash.py
-TOPICS_FILE = r"C:\Users\Enkhsaikhan\Data-engineering-scrap\summary_tables\monthly_topics_summary.json"      # The new file
-ECONOMY_FILE = r"C:\Users\Enkhsaikhan\Data-engineering-scrap\summary_tables\monthly_sentiment_summary.json" # The old file
-LAST_UPDATE = os.path.getmtime(r"C:\Users\Enkhsaikhan\Data-engineering-scrap\summary_tables\monthly_topics_summary.json")
-=======
 TOPICS_FILE = "https://business-news-sentiments.s3.eu-west-1.amazonaws.com/news_sentiments_monthly/topic_breakdown/monthly_topic_breakdown.csv"  
 ECONOMY_FILE = "https://business-news-sentiments.s3.eu-west-1.amazonaws.com/news_sentiments_monthly/sentiment/monthly_combined_sentiments.csv"
->>>>>>> 62c3741f7e2f1da7bc3df92fa97f26d95fe4a8a9:streamlit_dash.py
+
 
 # Load Data
 data_store = load_and_process_data(TOPICS_FILE, ECONOMY_FILE)
