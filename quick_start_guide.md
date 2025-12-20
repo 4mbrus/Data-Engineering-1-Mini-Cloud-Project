@@ -1,5 +1,5 @@
 # Steps to reproduce
- 0. Set up AWS credentials, download python libraries, install streamlit
+ 0. Set up AWS credentials, download python libraries, install streamlit, firefox (needed for Selenium)
  1. Set up an S3 bucket
  2. Run the scraping scripts
  3. Run the athena setup script
