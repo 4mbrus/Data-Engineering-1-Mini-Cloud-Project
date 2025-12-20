@@ -30,18 +30,5 @@ def fetch_latest_data(bucket_name, folder_prefix, local_filename):
         
         # 4. Download and Load into Python
         # We download to a temporary file first
-        s3.download_file(bucket_name, file_key, f"{local_filename}.json.gz")
+        s3.download_file(bucket_name, file_key, f"{local_filename}.csv")
         
-        print("⬇️ Download complete.")
-        try:
-            # Try reading as JSONL (one JSON object per line)
-            temp = pd.read_json(f"{local_filename}.json.gz", compression='gzip', lines=True)
-        except (ValueError, pd.errors.JSONDecodeError) as e:
-            # If that fails, try reading as a single JSON object
-            print(f"⚠️ JSONL parsing failed ({e}), attempting standard JSON parsing...")
-            temp = pd.read_json(f"{local_filename}.json.gz", compression='gzip')
-        
-        temp.to_json(f"{local_filename}.json")  # Save uncompressed for easier reuse
-        #delete .gz file after extraction
-        os.remove(f"{local_filename}.json.gz")
-        print("🗃️ Data loaded into DataFrame and saved locally.")
