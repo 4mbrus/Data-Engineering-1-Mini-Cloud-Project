@@ -59,7 +59,6 @@ def get_sentiment(body):
     Returns: 
         0 if NO (Not positive)
         1 if YES (Positive)
-        2 if MIXED
     """
     NOVA_MODEL_ID = "eu.amazon.nova-micro-v1:0"
     bedrock_runtime = boto3.client('bedrock-runtime', region_name="eu-west-1")
