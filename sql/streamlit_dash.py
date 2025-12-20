@@ -132,9 +132,9 @@ def make_topic_chart(df, color_hex):
 # -----------------------------------------------------------------------------
 
 # --- Files (Ensure these match your filenames on EC2) ---
-TOPICS_FILE = "monthly_topics.json"      # The new file
-ECONOMY_FILE = "monthly_sentiments.json" # The old file
-LAST_UPDATE = os.path.getmtime("monthly_topics.json")
+TOPICS_FILE = r"C:\Users\Enkhsaikhan\Data-engineering-scrap\summary_tables\monthly_topics_summary.json"      # The new file
+ECONOMY_FILE = r"C:\Users\Enkhsaikhan\Data-engineering-scrap\summary_tables\monthly_sentiment_summary.json" # The old file
+LAST_UPDATE = os.path.getmtime(r"C:\Users\Enkhsaikhan\Data-engineering-scrap\summary_tables\monthly_topics_summary.json")
 
 # Load Data
 data_store = load_and_process_data(TOPICS_FILE, ECONOMY_FILE)
