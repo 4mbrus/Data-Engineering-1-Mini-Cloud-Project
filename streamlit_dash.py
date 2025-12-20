@@ -180,7 +180,7 @@ col1, col2 = st.columns(2, gap="large")
 # --- LEFT COLUMN: CNN ---
 with col1:
     st.markdown('<img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/CNN.svg" height="100">', unsafe_allow_html=True)
-    st.subheader(f"Topic Focus (% of artcles - {current_month_str})")
+    st.subheader(f"Topic Focus (% of articles - {current_month_str})")
     
     # Get Data for this specific month
     cnn_topics = get_topics_for_month(data_store['topics_df'], current_month_str, "CNN")
@@ -189,7 +189,7 @@ with col1:
 # --- RIGHT COLUMN: FOX NEWS ---
 with col2:
     st.markdown('<img src="https://upload.wikimedia.org/wikipedia/commons/6/67/Fox_News_Channel_logo.svg" height="100">', unsafe_allow_html=True)
-    st.subheader(f"Topic Focus (% of artcles - {current_month_str})")
+    st.subheader(f"Topic Focus (% of articles - {current_month_str})")
     
     # Get Data for this specific month
     fox_topics = get_topics_for_month(data_store['topics_df'], current_month_str, "FOX")
