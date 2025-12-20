@@ -198,7 +198,7 @@ with col2:
 # 6. Bottom Section: Economy Sentiment (Rolling 12 Months)
 # -----------------------------------------------------------------------------
 st.markdown("---")
-st.header("📉 Percentage of Articles With Economic Sentiment (Rolling 12 Months)")
+st.header("📉 Percentage of Articles With Negative Economic Sentiment (Rolling 12 Months)")
 
 with st.container():
     economy_df = data_store['economy_df']
