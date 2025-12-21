@@ -11,13 +11,13 @@ The economic news articles were scraped direclty from CNN and Fox News websites 
 We scraped CNN and Fox News using a two-stage web-scraping process: first, we collected news links using the websites' search engines, and then we scraped the full articles using these links. We used two main Python Libraries for this process, Selemium and BeautifulSoup. This section explain the scraping logic for each news outlet separately. 
 
 #### 1. CNN Article Scraping  
-What makes it possible to scrape economic-related articles from CNN is its dynamic search link. By searching for the keyword 'economy' on CNN's search engine, the following link appears:
-https://edition.cnn.com/search?q=economy&from=0&size=10&page=1&sort=newest&types=article&section=
-Key details: 
-    • `q=economy` - search term 
-    • `size=10` - up to 10 results per page 
-    • `sort=newest` - most recent articles 
-    • `types=article` - excluding video, galleries 
+What makes it possible to scrape economic-related articles from CNN is its dynamic search link. By searching for the keyword 'economy' on CNN's search engine, the following link appears:  
+`https://edition.cnn.com/search?q=economy&from=0&size=10&page=1&sort= newest&types=article&section=`
+Key details:
+* `q=economy` - search term 
+* `size=10` - up to 10 results per page 
+* `sort=newest` - most recent articles 
+* `types=article` - excluding video, galleries 
 
 Using 52 keywords, up to 100 article links and headlines per keyword were scraped. Since CNN’s search engine relies on JavaScript, the scraping was performed using the Selenium package.
 ![](figs_report/pic1.png)
@@ -27,8 +27,11 @@ After collecting the news links, the full articles were scraped using BeautifulS
 ![](figs_report/pic3.png)
 
 #### 2. Fox News
-The same method is applied to 
+The same method is applied to Fox News. Using the Fox News economy category page, article headlines and links were first scrapped by iterating over paginated results: 
+`https://www.foxnews.com/category/us/economy?page={page_num}`
+The collected links were then used to scrap the full article texts and publication dates. BeautifulSoup was used for both stages of the scrapping process. Finally, scrapped data are save to AWS S3.
 
+![](figs_report/pic4.png)
 ---
 
 ### Methods
@@ -46,8 +49,43 @@ For each filtered article, the get_sentiment(text) function uses the same AWS No
 
 ---
 
+### Streamlit
+To enhance real-time accessibility, we have developed a dedicated Streamlit application that allows users to monitor the share of negative news and top economic topics on a monthly basis. This interactive tool ensures that as new data is collected, the analysis remains current, providing an up-to-date look at how media narratives shift over time. Users can explore monthly trends, such as the specific focus on topics like inflation, taxes, and housing, and see how these priorities differ between CNN and Fox News. The application is live and can be accessed at the following link: https://media-monitor-de.streamlit.app/.
+![](figs_report/streamlit.png)
+
+---
 ### Results
+The analysis is based exclusively on articles published in 2025, comprising 555 articles from CNN and 422 articles from Fox News, all of which were included in the sentiment analysis.
+
+1. The Big Picture: CNN is More Negative
+CNN is significantly more negative about the economy than Fox News. About 85% of CNN's economic stories are negative while it is only 59% for Fox News. 
+![](figs_report/average.png)
+
+The chart show the monthly share on negative economic news in 2025 for CNN and Fox. CNN consistently reports higher negative, often above 85% and peaking over 90% in March-May. Fox News is lower and more variable, ranging from about 38% to 77%, with spikes in August and November. Overall, CNN maintains a persistently pessimistic tone, while Fox news is less negative and more fluctuating. 
+![](figs_report/monthly_trend.png)
+
+2. Specific Topics (Inflation, Jobs, and Crypto)
+The negativity gap shows up in every category, but it’s most extreme in areas like Crypto and Energy. CNN reported negatively on Crypto about 80% of the time, while Fox was much more balanced at 40%. Even for "bread and butter" issues like Jobs, CNN was nearly 30% more negative than Fox.
+![](figs_report/topics.png)
+
+Why is it like this?
+The reason for this split usually comes down to who is in the White House.
+
+**The "Supportive" Media**: In 2025, Fox News (the conservative outlet) is likely more suportive of the administration, emphasizing successes such as job growth or business expansion. 
+
+**The "Watchdog" Media**: CNN (the liberal-leaning outlet) acts as the opposition. They focus on "risks," such as high prices or market instability, to hold the government accountable.
+
+This indicates that economic news is influenced by selective reporting: CNN likely emphasizes negative developments to critique the government, while Fox likely highlights positive news to support it. Coverage of economic issues thus reflects political perspectives as well as underlying data. 
 
 ---
 
 ### Cost
+The total cost to execute the analysis script and process nearly 3,000 articles was 1.334 USD. This includes the one-time sentiment classification using Amazon Nova Micro v1.0 and the foundational AWS infrastructure required to host the data. While the initial setup required a larger investment for bulk processing, the recurring monthly cost to maintain the dashboard is extremely low at less than $0.01 USD.
+
+| Category           | Service Component | Cost Detail                                                   | Total Cost (USD) |
+|-------------------|-----------------|---------------------------------------------------------------|----------------|
+| AI Model Inference | Amazon Bedrock  | Nova Micro: Bulk processing and classification of 2,960 articles | $1.0916        |
+| Compute & Logic    | AWS Lambda      | Script execution time (6245 ms) and miscellaneous processing | $0.2426        |
+| Data Storage       | Amazon S3       | Hosting 20.2 MB of economic data and monthly topic logs      | $0.0004        |
+| Data Querying      | Amazon Athena   | SQL scanning of JSONL files for dashboard updates           | $0.0001        |
+| **Total Script Cost** |                 | Complete execution from zero to live dashboard               | ~$1.334        |
