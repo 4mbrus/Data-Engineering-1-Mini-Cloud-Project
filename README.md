@@ -80,7 +80,7 @@ This indicates that economic news is influenced by selective reporting: CNN like
 ---
 
 ### Cost
-The total cost to execute the analysis script and process nearly 3,000 articles was 1.334 USD. This includes the one-time sentiment classification using Amazon Nova Micro v1.0 and the foundational AWS infrastructure required to host the data. While the initial setup required a larger investment for bulk processing, the recurring monthly cost to maintain the dashboard is extremely low at less than $0.01 USD.
+The total cost to execute the analysis script and process nearly 3,000 articles was 1.334 USD. This includes the one-time sentiment classification using Amazon Nova Micro v1.0 and the foundational AWS infrastructure required to host the data. While the initial setup required a larger investment for bulk processing, the recurring monthly cost to maintain the dashboard is extremely low at less than $0.01 USD. During trial and error, the bedrock prompts were refined and re-run multiple times, but most of the times on smaller datasets. We estimate that the development process costed an addtitional 2-3 USD.  
 
 | Category           | Service Component | Cost Detail                                                   | Total Cost (USD) |
 |-------------------|-----------------|---------------------------------------------------------------|----------------|
