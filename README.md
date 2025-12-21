@@ -29,9 +29,9 @@ After collecting the news links, the full articles were scraped using BeautifulS
 #### 2. Fox News
 The same method is applied to Fox News. Using the Fox News economy category page, article headlines and links were first scrapped by iterating over paginated results: 
 `https://www.foxnews.com/category/us/economy?page={page_num}`
-The collected links were then used to scrap the full article texts and publication dates. BeautifulSoup was used for both stages of the scrapping process. Finally, scrapped data are save to AWS S3.
+The collected links were then used to scrap the full article texts and publication dates. BeautifulSoup was used for both stages of the scrapping process. Finally, scrapped data are saved to AWS S3.
+![](figs_report/pic4.PNG)
 
-![](figs_report/pic4.png)
 ---
 
 ### Methods
@@ -51,7 +51,7 @@ For each filtered article, the get_sentiment(text) function uses the same AWS No
 
 ### Streamlit
 To enhance real-time accessibility, we have developed a dedicated Streamlit application that allows users to monitor the share of negative news and top economic topics on a monthly basis. This interactive tool ensures that as new data is collected, the analysis remains current, providing an up-to-date look at how media narratives shift over time. Users can explore monthly trends, such as the specific focus on topics like inflation, taxes, and housing, and see how these priorities differ between CNN and Fox News. The application is live and can be accessed at the following link: https://media-monitor-de.streamlit.app/.
-![](figs_report/streamlit.png)
+![](figs_report/streamlit.PNG)
 
 ---
 ### Results
