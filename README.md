@@ -1,5 +1,7 @@
 <h1 style="text-align: center;">How Conservative and Liberal News Media See Current Economic Condition: CNN vs. Fox News</h1>
 
+**Author:** Enkhsaikhan Usny-Ekh, Ambrus Fodor 
+
 ## Introduction 
 Economic conditions are not only shaped by objective indicators such as inflation, employment, or growth, but also by how these indicators are interpreted and communcated to the public. News media play a central role in shaping public perceptions of economy, influencing consumer confidence and politiccal attitutes. This report examines how liberal and conservative news media differ in their portrayal of the U.S. economic situations, focusing on a comparative case study of CNN and Fox News. CNN is commonly associated with a liberal-leaning audience, while Fox News is widely regarded as representing conservative viewpoints. 
 
